@@ -18,8 +18,9 @@
             let computerSelection = computerPlay();
 
             console.log(computerSelection);
-            
-            let playerSelection = prompt("Rock, paper, or scissors?");
+
+            let playerSelectionx = prompt("Rock, paper, or scissors?");
+            let playerSelection = playerSelectionx.toLowerCase()
             function play(playerSelection, computerSelection) {
                 if (playerSelection === 'rock') {
                     return (computerSelection === 'scissors') ? "Rock beats scissors, you win!"
