@@ -8,17 +8,17 @@
 
 <body>
     <script>
-        function computerPlay() {
-            choice = Math.random();
-            return (choice < 0.34) ? 'rock'
-                : (choice <= 0.67) ? 'scissors'
-                : 'paper'   
-        };
-        let computerSelection = computerPlay()
+        function game(){    
+            function computerPlay() {
+                choice = Math.random();
+                return (choice < 0.34) ? 'rock'
+                    : (choice <= 0.67) ? 'scissors'
+                    : 'paper'   
+            };
+            let computerSelection = computerPlay();
 
-        console.log(computerSelection)
-       
-        function game(){
+            console.log(computerSelection);
+            
             let playerSelection = prompt("Rock, paper, or scissors?");
             function play(playerSelection, computerSelection) {
                 if (playerSelection === 'rock') {
