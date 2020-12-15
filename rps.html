@@ -7,49 +7,107 @@
 </head>
 
 <body>
-    <script>
-        function game(){    
-            function computerPlay() {
-                choice = Math.random();
-                return (choice < 0.34) ? 'rock'
-                    : (choice <= 0.67) ? 'scissors'
-                    : 'paper'   
-            };
-            let computerSelection = computerPlay();
+    <div>
+        <h1>Score:</h1>
+        <p>Player Score:</p><p id="uScore">0</p>
+        <p>Computer Score:</p><p id="cScore">0</p>
+    </div>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div>
+        <h1>Winner:</h1>
+            <p id="winner"></p>
+            <p id="instructions">Pick a button to begin.</p>
+    </div>
+    <script>   
+        let instructions = document.querySelector('#instructions');
+        let cscore = document.querySelector('#cscore')
+        let uscore = document.querySelector('#uscore')
+        let userScore = 0;
+        let computerScore = 0;        
+        let buttons = document.querySelectorAll('button');
+        
+        buttons.forEach((button) => {
+            button.addEventListener('click', respondToClick)
+            
+            function respondToClick(){    
+                let computerSelection = computerPlay();
+                let playerSelection;
+                instructions.textContent = ""
+                playerSelection = event.srcElement.id;
+                console.log(playerSelection);
 
-            console.log(computerSelection);
+                function computerPlay() {
+                    choice = Math.random();
+                    return (choice < 0.34) ? 'rock'
+                        : (choice <= 0.67) ? 'scissors'
+                        : 'paper'
+                };
+                console.log(computerSelection);
 
-            let playerSelectionx = prompt("Rock, paper, or scissors?");
-            let playerSelection = playerSelectionx.toLowerCase()
-            function play(playerSelection, computerSelection) {
-                if (playerSelection === 'rock') {
-                    return (computerSelection === 'scissors') ? "Rock beats scissors, you win!"
-                        : (computerSelection === 'paper') ? "Paper beats rock, you lose!"
-                        : "You tied!";
+                let result = play(playerSelection, computerSelection);
+                console.log(play(playerSelection, computerSelection));
+                
+                if (result.indexOf('win') !== -1){
+                    userScore++;
+                    document.getElementById('uScore').textContent = `${userScore}`
+                } else if (result.indexOf('lose') !== -1){
+                    computerScore++;
+                    document.getElementById('cScore').textContent = `${computerScore}`;
+                } else {
+                    console.log("tie")
                 }
-                if (playerSelection === 'paper') {
-                    return (computerSelection === 'rock') ? "Paper beats rock, you win!"
-                        : (computerSelection === 'scissors') ? "scissors beats paper, you lose!"
-                        : "You tied!";
+                if (userScore ===5){
+                    document.getElementById('winner').textContent = "Game over, You win!";
+                } else if (computerScore === 5){
+                    document.getElementById('winner').textContent = "Game over, You lose!";
+                } else{
+                    document.getElementById('winner').textContent = "Keep playing!"
                 }
-                if (playerSelection === 'scissors') {
-                    return (computerSelection === 'rock') ? "Rock beats scissors, you lose!"
-                        : (computerSelection === 'paper') ? "Scissors beats paper, you win!"
-                        : "You tied!";
+
+                
+                if(userScore === 5 || computerScore ===5){
+                    button.removeEventListener('click', respondToClick)
+                    let delay = 2000
+                    setTimeout(function() {
+                    if(userScore === 5) instructions.textContent = "You won, pick another to play again.";
+                    if(computerScore === 5) instructions.textContent= "You lost, pick another to play again.";
+                    userScore = 0;
+                    document.getElementById('uScore').textContent = `${userScore}`
+                    computerScore = 0;
+                    document.getElementById('cScore').textContent = `${computerScore}`;
+                    button.addEventListener('click', respondToClick)
+                    }, delay);
                 }
-            };
-            console.log(play(playerSelection, computerSelection))
-        }
-        let i = 1
-        while (i < 6) {
-            game();
-            i++;
-        }
         
 
+
+                
+                
+            };
+        });
         
 
-
+        function play(playerSelection, computerSelection) {
+            if (playerSelection === 'rock') {
+                return (computerSelection === 'scissors') ? "Rock beats scissors, you win!"
+                    : (computerSelection === 'paper') ? "Paper beats rock, you lose!"
+                    : "You tied!";
+            }
+            if (playerSelection === 'paper') {
+                return (computerSelection === 'rock') ? "Paper beats rock, you win!"
+                    : (computerSelection === 'scissors') ? "scissors beats paper, you lose!"
+                    : "You tied!";
+            }
+            if (playerSelection === 'scissors') {
+                return (computerSelection === 'rock') ? "Rock beats scissors, you lose!"
+                    : (computerSelection === 'paper') ? "Scissors beats paper, you win!"
+                    : "You tied!";
+            }
+        };
+       
+        
     </script>
 </body>
 
