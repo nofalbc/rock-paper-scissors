@@ -34,7 +34,7 @@
             function respondToClick(){    
                 let computerSelection = computerPlay();
                 let playerSelection;
-                instructions.textContent = ""
+                instructions.textContent = "If neither score increases then it was a tie!"
                 playerSelection = event.srcElement.id;
                 console.log(playerSelection);
 
@@ -69,7 +69,7 @@
                 
                 if(userScore === 5 || computerScore ===5){
                     button.removeEventListener('click', respondToClick)
-                    let delay = 2000
+                    let delay = 1500
                     setTimeout(function() {
                     if(userScore === 5) instructions.textContent = "You won, pick another to play again.";
                     if(computerScore === 5) instructions.textContent= "You lost, pick another to play again.";
